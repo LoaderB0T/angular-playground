@@ -59,7 +59,10 @@ export class StoreService {
   }
 
   public getTodos$() {
-    return this._state.asObservable().pipe(tap(() => this.logGet('async')));
+    return this._state.asObservable().pipe(
+      map((s) => s.todos),
+      tap(() => this.logGet('async'))
+    );
   }
 
   public getTodosSig() {
