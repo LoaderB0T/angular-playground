@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { StoreService } from '../store.service';
 import { ToDoItem } from '../model';
 
@@ -27,7 +22,7 @@ export class OnPushSignalsComponent {
   }
 
   public todoCompleted(item: ToDoItem) {
-    this.todoStore.editTodo(item.id, (draft) => {
+    this.todoStore.editTodo(item.id, draft => {
       draft.completed = !draft.completed;
     });
   }

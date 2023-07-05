@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ChangeDetectionComponent } from './change-detection/change-detection.component';
 import { ChangeDetectionModule } from './change-detection/change-detection.module';
 import { RouterModule, Routes } from '@angular/router';
 

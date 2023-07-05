@@ -12,7 +12,7 @@ import { map } from 'rxjs';
 export class OnPushAsyncComponent {
   items$ = this.todoStore.getTodos$();
 
-  count$ = this.items$.pipe(map((items) => items.length));
+  count$ = this.items$.pipe(map(items => items.length));
 
   counter$ = this.todoStore.getCounter$();
 
@@ -23,7 +23,7 @@ export class OnPushAsyncComponent {
   }
 
   public todoCompleted(item: ToDoItem) {
-    this.todoStore.editTodo(item.id, (draft) => {
+    this.todoStore.editTodo(item.id, draft => {
       draft.completed = !draft.completed;
     });
   }

@@ -1,22 +1,28 @@
 <h1>TODO List (Async)</h1>
 <h2>Count: {{ count$ | async }}</h2>
-<input #newItem class="textbox" placeholder="add an item" id="addItemInput" />
-<button class="btn" (click)="addTodo(newItem.value)">Add</button>
+<input #newItem
+       class="textbox"
+       placeholder="add an item"
+       id="addItemInput" />
+<button class="btn"
+        (click)="addTodo(newItem.value)">Add</button>
 <br />
 <br />
-<div *ngFor="let item of items$ | async" class="item">
-  <input
-    type="checkbox"
-    [checked]="item.completed"
-    (change)="todoCompleted(item)"
-  />
-  <div class="lg-text-input" [ngClass]="{ completed: item.completed }">
+<div *ngFor="let item of items$ | async"
+     class="item">
+  <input type="checkbox"
+         [checked]="item.completed"
+         (change)="todoCompleted(item)" />
+  <div class="lg-text-input"
+       [ngClass]="{ completed: item.completed }">
     {{ item.title }}
   </div>
 </div>
 
 <div>
   <h1>Counter: {{ counter$ | async }}</h1>
-  <button class="btn" (click)="incrementCounter()">Increment</button>
-  <button class="btn" (click)="decrementCounter()">Decrement</button>
+  <button class="btn"
+          (click)="incrementCounter()">Increment</button>
+  <button class="btn"
+          (click)="decrementCounter()">Decrement</button>
 </div>

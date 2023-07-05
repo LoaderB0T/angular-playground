@@ -29,7 +29,7 @@ export class DefaultComponent {
   }
 
   public todoCompleted(item: ToDoItem) {
-    this.todoStore.editTodo(item.id, (draft) => {
+    this.todoStore.editTodo(item.id, draft => {
       draft.completed = !draft.completed;
     });
   }
