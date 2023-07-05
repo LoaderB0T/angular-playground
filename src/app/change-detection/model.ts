@@ -1,5 +1,5 @@
 export interface ToDoItem {
-  title: string;
-  completed: boolean;
-  order: number;
+  readonly title: string;
+  readonly completed: boolean;
+  readonly order: number;
 }
