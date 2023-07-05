@@ -1,5 +1,8 @@
-export interface ToDoItem {
-  readonly title: string;
+export type ToDoItem = NewToDoItem & {
+  readonly id: number;
   readonly completed: boolean;
-  readonly order: number;
-}
+};
+
+export type NewToDoItem = {
+  readonly title: string;
+};
