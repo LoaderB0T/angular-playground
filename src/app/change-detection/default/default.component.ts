@@ -8,23 +8,19 @@ import { ToDoItem } from '../model';
   styleUrls: ['./default.component.scss'],
 })
 export class DefaultComponent {
-  public items: ToDoItem[] = [];
+  public get items(): ToDoItem[] {
+    return this.todoStore.getTodos();
+  }
 
   constructor(private readonly todoStore: StoreService) {}
 
-  ngOnInit() {
-    this.items = this.todoStore.getTodos();
-  }
-
   public addTodo(value: string) {
     this.todoStore.addTodo({ title: value });
-    this.items = this.todoStore.getTodos();
   }
 
   public todoCompleted(item: ToDoItem) {
     this.todoStore.editTodo(item.id, (draft) => {
       draft.completed = !draft.completed;
     });
-    this.items = this.todoStore.getTodos();
   }
 }
