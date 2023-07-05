@@ -12,6 +12,10 @@ export class DefaultComponent {
     return this.todoStore.getTodos();
   }
 
+  public get count(): number {
+    return this.items.length;
+  }
+
   constructor(private readonly todoStore: StoreService) {}
 
   public addTodo(value: string) {
