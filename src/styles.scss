@@ -22,3 +22,22 @@
   }
 }
 
+.textbox {
+  height: 1.5rem;
+}
+
+.btn {
+  height: 2rem;
+}
+
+.item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-bottom: 1px solid #dcdcdc;
+  height: 2rem;
+}
+
+.completed {
+  text-decoration: line-through;
+}
