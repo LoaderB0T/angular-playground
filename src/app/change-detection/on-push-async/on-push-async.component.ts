@@ -9,23 +9,17 @@ import { ToDoItem } from '../model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OnPushAsyncComponent {
-  items: ToDoItem[] = [];
+  items$ = this.todoStore.getTodos$();
 
-  constructor(private readonly todoStore: StoreService) {
-    todoStore.getTodos$().subscribe((todos) => {
-      this.items = todos.todos;
-    });
-  }
+  constructor(private readonly todoStore: StoreService) {}
 
   public addTodo(value: string) {
     this.todoStore.addTodo({ title: value });
-    this.items = this.todoStore.getTodos();
   }
 
   public todoCompleted(item: ToDoItem) {
     this.todoStore.editTodo(item.id, (draft) => {
       draft.completed = !draft.completed;
     });
-    this.items = this.todoStore.getTodos();
   }
 }

@@ -3,7 +3,7 @@
 <button class="btn" (click)="addTodo(newItem.value)">Add</button>
 <br />
 <br />
-<div *ngFor="let item of items" class="item">
+<div *ngFor="let item of items$ | async" class="item">
   <input
     type="checkbox"
     [checked]="item.completed"
