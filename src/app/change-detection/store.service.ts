@@ -13,9 +13,16 @@ type State = {
 @Injectable({ providedIn: 'root' })
 export class StoreService {
   private _counter = {
-    default: 0,
-    async: 0,
-    signal: 0,
+    todo: {
+      default: 0,
+      async: 0,
+      signal: 0,
+    },
+    counter: {
+      default: 0,
+      async: 0,
+      signal: 0,
+    },
   };
 
   private _state = new BehaviorSubject<State>({
@@ -71,7 +78,10 @@ export class StoreService {
         : which === 'async'
         ? color.green
         : color.magenta;
-    console.log(colorFn(`[get ${kind} ${which}]: ${++this._counter[which]}`));
+
+    console.log(
+      colorFn(`[get ${kind} ${which}]: ${++this._counter[kind][which]}`)
+    );
   }
 
   public getTodos() {
