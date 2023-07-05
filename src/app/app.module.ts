@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChangeDetectionComponent } from './change-detection/change-detection.component';
+import { ChangeDetectionModule } from './change-detection/change-detection.module';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: 'changeDetection',
+    loadChildren: () => ChangeDetectionModule,
+  },
+];
 
 @NgModule({
-  declarations: [AppComponent, ChangeDetectionComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, RouterModule.forRoot(routes)],
   providers: [],
   bootstrap: [AppComponent],
 })

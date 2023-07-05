@@ -4,28 +4,36 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './default/default.component';
 import { OnPushAsyncComponent } from './on-push-async/on-push-async.component';
 import { OnPushSignalsComponent } from './on-push-signals/on-push-signals.component';
+import { ChangeDetectionComponent } from './change-detection.component';
 
 const routes: Routes = [
   {
-    path: 'default',
-    component: DefaultComponent,
-  },
-  {
-    path: 'on-push-async',
-    component: OnPushAsyncComponent,
-  },
-  {
-    path: 'on-push-signals',
-    component: OnPushSignalsComponent,
+    path: '',
+    component: ChangeDetectionComponent,
+    children: [
+      {
+        path: 'default',
+        component: DefaultComponent,
+      },
+      {
+        path: 'on-push-async',
+        component: OnPushAsyncComponent,
+      },
+      {
+        path: 'on-push-signals',
+        component: OnPushSignalsComponent,
+      },
+    ],
   },
 ];
 
 @NgModule({
   declarations: [
+    ChangeDetectionComponent,
     DefaultComponent,
     OnPushAsyncComponent,
     OnPushSignalsComponent,
   ],
-  imports: [CommonModule, RouterModule.forRoot(routes)],
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class ChangeDetectionModule {}
