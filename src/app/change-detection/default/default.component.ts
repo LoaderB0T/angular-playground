@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { StoreService } from '../store.service';
 import { ToDoItem } from '../model';
 
@@ -6,6 +6,7 @@ import { ToDoItem } from '../model';
   selector: 'app-default',
   templateUrl: './default.component.html',
   styleUrls: ['./default.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DefaultComponent {
   public get items(): ToDoItem[] {

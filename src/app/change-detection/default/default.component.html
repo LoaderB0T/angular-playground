@@ -1,11 +1,7 @@
-<h1>TODO List</h1>
+<h1>TODO List (Default)</h1>
 <h2>Count: {{count}}</h2>
-<input #newItem
-       class="textbox"
-       placeholder="add an item"
-       id="addItemInput" />
-<button class="btn"
-        (click)="addTodo(newItem.value)">Add</button>
+<input #newItem class="textbox" placeholder="add an item" id="addItemInput" />
+<button class="btn" (click)="addTodo(newItem.value)">Add</button>
 <br />
 <br />
 <div *ngFor="let item of items"
