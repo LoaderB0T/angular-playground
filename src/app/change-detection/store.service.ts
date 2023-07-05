@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, tap } from 'rxjs';
 import { color } from 'console-log-colors';
 import { NewToDoItem, ToDoItem } from './model';
 import { Draft, produce } from 'immer';
@@ -61,6 +61,7 @@ export class StoreService {
   public getTodos$() {
     return this._state.asObservable().pipe(
       map((s) => s.todos),
+      distinctUntilChanged(),
       tap(() => this.logGet('async'))
     );
   }
