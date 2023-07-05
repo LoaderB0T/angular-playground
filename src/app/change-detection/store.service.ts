@@ -11,6 +11,12 @@ type State = {
 
 @Injectable({ providedIn: 'root' })
 export class StoreService {
+  private _counter = {
+    default: 0,
+    async: 0,
+    signal: 0,
+  };
+
   private _state = new BehaviorSubject<State>({
     todos: [],
   });
@@ -37,23 +43,27 @@ export class StoreService {
     });
   }
 
+  private logGet(which: 'default' | 'async' | 'signal') {
+    const chalkFn =
+      which === 'default'
+        ? chalk.blue
+        : which === 'async'
+        ? chalk.green
+        : chalk.magenta;
+    console.log(chalkFn(`[get ${which}]: ${++this._counter[which]}`));
+  }
+
   public getTodos() {
-    console.log(chalk.blue('[get default]'));
+    this.logGet('default');
     return this._state.getValue().todos;
   }
 
   public getTodos$() {
-    return this._state
-      .asObservable()
-      .pipe(tap(() => console.log(chalk.green('[get async]'))));
+    return this._state.asObservable().pipe(tap(() => this.logGet('async')));
   }
 
   public getTodosSig() {
-    return toSignal(
-      this.getTodos$().pipe(
-        tap(() => console.log(chalk.magenta('[get signal]')))
-      )
-    );
+    return toSignal(this.getTodos$().pipe(tap(() => this.logGet('signal'))));
   }
 
   public editTodo(id: number, updater: (draft: Draft<ToDoItem>) => void) {
