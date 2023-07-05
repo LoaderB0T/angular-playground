@@ -24,7 +24,7 @@ export class StoreService {
   });
 
   private getNextId() {
-    const todos = this.getTodos();
+    const todos = this._state.value.todos;
     return todos.length === 0 ? 1 : Math.max(...todos.map((t) => t.id)) + 1;
   }
 
