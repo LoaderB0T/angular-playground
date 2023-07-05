@@ -117,7 +117,7 @@ export class StoreService {
 
   public getCounterSig() {
     return toSignal(
-      this.getCounter$().pipe(tap(() => this.logGet('signal', 'counter')))
+      this.getCounter$(false).pipe(tap(() => this.logGet('signal', 'counter')))
     );
   }
 }
