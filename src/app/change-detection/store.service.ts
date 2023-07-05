@@ -7,6 +7,7 @@ import { Draft, produce } from 'immer';
 
 type State = {
   readonly todos: ToDoItem[];
+  readonly counter: number;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -19,6 +20,7 @@ export class StoreService {
 
   private _state = new BehaviorSubject<State>({
     todos: [],
+    counter: 0,
   });
 
   private getNextId() {
@@ -43,18 +45,33 @@ export class StoreService {
     });
   }
 
-  private logGet(which: 'default' | 'async' | 'signal') {
+  public incrementCounter() {
+    this.updateState((s) => {
+      s.counter++;
+    });
+  }
+
+  public decrementCounter() {
+    this.updateState((s) => {
+      s.counter--;
+    });
+  }
+
+  private logGet(
+    which: 'default' | 'async' | 'signal',
+    kind: 'todo' | 'counter'
+  ) {
     const colorFn =
       which === 'default'
         ? color.blue
         : which === 'async'
         ? color.green
         : color.magenta;
-    console.log(colorFn(`[get ${which}]: ${++this._counter[which]}`));
+    console.log(colorFn(`[get ${kind} ${which}]: ${++this._counter[which]}`));
   }
 
   public getTodos() {
-    this.logGet('default');
+    this.logGet('default', 'todo');
     return this._state.getValue().todos;
   }
 
@@ -62,12 +79,14 @@ export class StoreService {
     return this._state.asObservable().pipe(
       map((s) => s.todos),
       distinctUntilChanged(),
-      tap(() => this.logGet('async'))
+      tap(() => this.logGet('async', 'todo'))
     );
   }
 
   public getTodosSig() {
-    return toSignal(this.getTodos$().pipe(tap(() => this.logGet('signal'))));
+    return toSignal(
+      this.getTodos$().pipe(tap(() => this.logGet('signal', 'todo')))
+    );
   }
 
   public editTodo(id: number, updater: (draft: Draft<ToDoItem>) => void) {
@@ -77,5 +96,24 @@ export class StoreService {
         updater(todo);
       }
     });
+  }
+
+  public getCounter() {
+    this.logGet('default', 'counter');
+    return this._state.getValue().counter;
+  }
+
+  public getCounter$() {
+    return this._state.asObservable().pipe(
+      map((s) => s.counter),
+      distinctUntilChanged(),
+      tap(() => this.logGet('async', 'counter'))
+    );
+  }
+
+  public getCounterSig() {
+    return toSignal(
+      this.getCounter$().pipe(tap(() => this.logGet('signal', 'counter')))
+    );
   }
 }

@@ -16,6 +16,10 @@ export class DefaultComponent {
     return this.items.length;
   }
 
+  public get counter() {
+    return this.todoStore.getCounter();
+  }
+
   constructor(private readonly todoStore: StoreService) {}
 
   public addTodo(value: string) {
@@ -26,5 +30,13 @@ export class DefaultComponent {
     this.todoStore.editTodo(item.id, (draft) => {
       draft.completed = !draft.completed;
     });
+  }
+
+  public incrementCounter() {
+    this.todoStore.incrementCounter();
+  }
+
+  public decrementCounter() {
+    this.todoStore.decrementCounter();
   }
 }

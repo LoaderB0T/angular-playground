@@ -18,3 +18,11 @@
     {{ item.title }}
   </div>
 </div>
+
+<div>
+  <h1>Counter: {{counter}}</h1>
+  <button class="btn"
+          (click)="incrementCounter()">Increment</button>
+  <button class="btn"
+          (click)="decrementCounter()">Decrement</button>
+</div>
