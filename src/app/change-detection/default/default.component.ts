@@ -24,6 +24,7 @@ export class DefaultComponent {
   constructor(private readonly todoStore: StoreService) {}
 
   public addTodo(value: string) {
+    if (!value) return;
     this.todoStore.addTodo({ title: value });
   }
 
