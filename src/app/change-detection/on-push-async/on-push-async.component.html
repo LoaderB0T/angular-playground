@@ -1,1 +1,15 @@
-<p>on-push-async works!</p>
+<h1>TODO List (Async)</h1>
+<input #newItem class="textbox" placeholder="add an item" id="addItemInput" />
+<button class="btn" (click)="addTodo(newItem.value)">Add</button>
+<br />
+<br />
+<div *ngFor="let item of items" class="item">
+  <input
+    type="checkbox"
+    [checked]="item.completed"
+    (change)="todoCompleted(item)"
+  />
+  <div class="lg-text-input" [ngClass]="{ completed: item.completed }">
+    {{ item.title }}
+  </div>
+</div>
