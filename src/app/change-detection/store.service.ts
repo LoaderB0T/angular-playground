@@ -1,5 +1,6 @@
-import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, map } from 'rxjs';
 import { ToDoItem } from './model';
 import { Draft, produce } from 'immer';
 
@@ -23,5 +24,17 @@ export class StoreService {
     this.updateState((s) => {
       s.todos.push(todo);
     });
+  }
+
+  public getTodos() {
+    return this._state.getValue().todos;
+  }
+
+  public getTodos$() {
+    return this._state.asObservable().pipe(map((s) => s.todos));
+  }
+
+  public getTodosSig() {
+    return toSignal(this.getTodos$());
   }
 }
