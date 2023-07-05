@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
+import chalk from 'chalk';
 import { NewToDoItem, ToDoItem } from './model';
 import { Draft, produce } from 'immer';
 
@@ -37,15 +38,22 @@ export class StoreService {
   }
 
   public getTodos() {
+    console.log(chalk.blue('[get default]'));
     return this._state.getValue().todos;
   }
 
   public getTodos$() {
-    return this._state.asObservable().pipe(map((s) => s.todos));
+    return this._state
+      .asObservable()
+      .pipe(tap(() => console.log(chalk.green('[get async]'))));
   }
 
   public getTodosSig() {
-    return toSignal(this.getTodos$());
+    return toSignal(
+      this.getTodos$().pipe(
+        tap(() => console.log(chalk.magenta('[get signal]')))
+      )
+    );
   }
 
   public editTodo(id: number, updater: (draft: Draft<ToDoItem>) => void) {
