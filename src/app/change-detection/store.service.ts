@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, map, tap } from 'rxjs';
-import chalk from 'chalk';
+import { color } from 'console-log-colors';
 import { NewToDoItem, ToDoItem } from './model';
 import { Draft, produce } from 'immer';
 
@@ -44,13 +44,13 @@ export class StoreService {
   }
 
   private logGet(which: 'default' | 'async' | 'signal') {
-    const chalkFn =
+    const colorFn =
       which === 'default'
-        ? chalk.blue
+        ? color.blue
         : which === 'async'
-        ? chalk.green
-        : chalk.magenta;
-    console.log(chalkFn(`[get ${which}]: ${++this._counter[which]}`));
+        ? color.green
+        : color.magenta;
+    console.log(colorFn(`[get ${which}]: ${++this._counter[which]}`));
   }
 
   public getTodos() {
