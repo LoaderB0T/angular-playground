@@ -59,8 +59,12 @@ export class StoreService {
 
   private logGet(
     which: 'default' | 'async' | 'signal',
-    kind: 'todo' | 'counter'
+    kind: 'todo' | 'counter',
+    doLog = true
   ) {
+    if (!doLog) {
+      return;
+    }
     const colorFn =
       which === 'default'
         ? color.blue
@@ -75,17 +79,17 @@ export class StoreService {
     return this._state.getValue().todos;
   }
 
-  public getTodos$() {
+  public getTodos$(log = true) {
     return this._state.asObservable().pipe(
       map((s) => s.todos),
       distinctUntilChanged(),
-      tap(() => this.logGet('async', 'todo'))
+      tap(() => this.logGet('async', 'todo', log))
     );
   }
 
   public getTodosSig() {
     return toSignal(
-      this.getTodos$().pipe(tap(() => this.logGet('signal', 'todo')))
+      this.getTodos$(false).pipe(tap(() => this.logGet('signal', 'todo')))
     );
   }
 
@@ -103,11 +107,11 @@ export class StoreService {
     return this._state.getValue().counter;
   }
 
-  public getCounter$() {
+  public getCounter$(log = true) {
     return this._state.asObservable().pipe(
       map((s) => s.counter),
       distinctUntilChanged(),
-      tap(() => this.logGet('async', 'counter'))
+      tap(() => this.logGet('async', 'counter', log))
     );
   }
 

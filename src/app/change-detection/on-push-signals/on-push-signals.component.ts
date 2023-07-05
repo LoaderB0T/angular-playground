@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+} from '@angular/core';
 import { StoreService } from '../store.service';
 import { ToDoItem } from '../model';
 
@@ -10,6 +15,9 @@ import { ToDoItem } from '../model';
 })
 export class OnPushSignalsComponent {
   items = this.todoStore.getTodosSig();
+  counter = this.todoStore.getCounterSig();
+
+  count = computed(() => this.items()?.length ?? 0);
 
   constructor(private readonly todoStore: StoreService) {}
 
@@ -22,5 +30,13 @@ export class OnPushSignalsComponent {
     this.todoStore.editTodo(item.id, (draft) => {
       draft.completed = !draft.completed;
     });
+  }
+
+  public incrementCounter() {
+    this.todoStore.incrementCounter();
+  }
+
+  public decrementCounter() {
+    this.todoStore.decrementCounter();
   }
 }
